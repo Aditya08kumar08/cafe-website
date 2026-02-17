@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fukusu Cafe - Your Perfect Coffee Stop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        nav {
+            background: #333;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #ff6b35;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #2d2d2d 0%, #3a3a3a 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
+            border-color: #ff6b35;
+        }
+
+        .menu-item h3 {
+            color: #ff8c42;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item .description {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .menu-item .price {
+            font-size: 1.3rem;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .item-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .select-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .select-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.5);
+        }
+
+        .select-btn.selected {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+        }
+
+        .cart-section {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .cart-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .cart-items {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            min-height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .remove-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .checkout-btn {
+            background: white;
+            color: #ff6b35;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .empty-cart {
+            text-align: center;
+            opacity: 0.7;
+            padding: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>☕ Fukusu Cafe</h1>
+            <p class="tagline">Where every cup tells a story</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#coffee">Coffee</a></li>
+            <li><a href="#food">Food</a></li>
+            <li><a href="#cart">Your Order</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="two-column">
+            <div>
+                <section id="coffee" class="section">
+                    <h2 class="section-title">☕ Coffee Menu</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">☕</div>
+                            <h3>Espresso</h3>
+                            <p class="description">Rich and bold, our signature espresso shot made from premium arabica beans</p>
+                            <p class="price">₹ 150</p>
+                            <button class="select-btn" onclick="addToCart('Espresso', 150 , this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">🥤</div>
+                            <h3>Cappuccino</h3>
+                            <p class="description">Creamy foam perfection with a perfect espresso base and steamed milk</p>
+                            <p class="price">₹ 180</p>
+                            <button class="select-btn" onclick="addToCart('Cappuccino', 180 , this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">🍵</div>
+                            <h3>Latte</h3>
+                            <p class="description">Smooth and silky, our classic latte with your choice of flavor</p>
+                            <p class="price">₹ 150</p>
+                            <button class="select-btn" onclick="addToCart('Latte', 150 , this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">🧊</div>
+                            <h3>Iced Coffee</h3>
+                            <p class="description">Refreshing cold brew served over ice with a hint of sweetness</p>
+                            <p class="price">₹ 200</p>
+                            <button class="select-btn" onclick="addToCart('Iced Coffee', 200 , this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">🍫</div>
+                            <h3>Mocha</h3>
+                            <p class="description">Indulgent chocolate and espresso blend topped with whipped cream</p>
+                            <p class="price">₹ 200</p>
+                            <button class="select-btn" onclick="addToCart('Mocha', 200, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="coffee">
+                            <div class="item-icon">🍮</div>
+                            <h3>Faafe</h3>
+                            <p class="description">Vanilla-flavored drink marked with espresso and caramel drizzle</p>
+                            <p class="price">₹ 180</p>
+                            <button class="select-btn" onclick="addToCart('Caramel Macchiato', 180 , this)">Add to Order</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="food" class="section">
+                    <h2 class="section-title">🍽️ Food Menu</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🥐</div>
+                            <h3>Butter Croissant</h3>
+                            <p class="description">Flaky, buttery French pastry baked fresh daily</p>
+                            <p class="price">₹ 130</p>
+                            <button class="select-btn" onclick="addToCart('Butter Croissant', 130, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🥯</div>
+                            <h3>Bagel & Cream Cheese</h3>
+                            <p class="description">Toasted bagel with your choice of cream cheese flavor</p>
+                            <p class="price">₹ 150</p>
+                            <button class="select-btn" onclick="addToCart('Bagel & Cream Cheese', 150, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🥪</div>
+                            <h3>Club Sandwich</h3>
+                            <p class="description">Triple-decker with turkey, bacon, lettuce, tomato, and mayo</p>
+                            <p class="price">₹ 200</p>
+                            <button class="select-btn" onclick="addToCart('Club Sandwich', 200, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🥗</div>
+                            <h3>Veggie Salad</h3>
+                            <p class="description">Fresh romaine with parmesan, croutons, and Caesar dressing</p>
+                            <p class="price">₹ 250</p>
+                            <button class="select-btn" onclick="addToCart('Caesar Salad',250, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🍰</div>
+                            <h3>Chocolate Cake</h3>
+                            <p class="description">Decadent triple-layer chocolate cake with rich frosting</p>
+                            <p class="price">₹ 500</p>
+                            <button class="select-btn" onclick="addToCart('Chocolate Cake', 500, this)">Add to Order</button>
+                        </div>
+
+                        <div class="menu-item" data-category="food">
+                            <div class="item-icon">🧁</div>
+                            <h3>Blueberry Muffin</h3>
+                            <p class="description">Moist and fluffy muffin bursting with fresh blueberries</p>
+                            <p class="price">₹ 250</p>
+                            <button class="select-btn" onclick="addToCart('Blueberry Muffin',250, this)">Add to Order</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div>
+                <section id="cart" class="cart-section">
+                    <h2 class="cart-title">🛒 Your Order</h2>
+                    <div class="cart-items" id="cartItems">
+                        <p class="empty-cart">Your cart is empty. Start adding items!</p>
+                    </div>
+                    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+                    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price, button) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+
+            button.textContent = 'Added! ✓';
+            button.classList.add('selected');
+            
+            setTimeout(() => {
+                button.textContent = 'Add to Order';
+                button.classList.remove('selected');
+            }, 1000);
+
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartTotalDiv = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p class="empty-cart">Your cart is empty. Start adding items!</p>';
+                cartTotalDiv.textContent = 'Total: ₹0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>₹${item.price.toFixed(2)} × ${item.quantity} = ₹${itemTotal.toFixed(2)}</small>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+            });
+
+            cartItemsDiv.innerHTML = html;
+            cartTotalDiv.textContent = `Total: ₹${total.toFixed(2)}`;
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty! Please add some items first.');
+                return;
+            }
+
+            let orderSummary = 'Order Summary:\n\n';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                orderSummary += `${item.name} × ${item.quantity} - ₹${itemTotal.toFixed(2)}\n`;
+            });
+
+            orderSummary += `\nTotal: ₹${total.toFixed(2)}\n\nThank you for your order!`;
+            
+            alert(orderSummary);
+            cart = [];
+            updateCart();
+        }
+    </script>
+</body>
+</html>
+
